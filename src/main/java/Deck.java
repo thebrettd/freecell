@@ -4,16 +4,16 @@ import java.util.Stack;
 
 public class Deck {
 
-    private Stack<Card> cards = new Stack<Card>();
+    private  Stack<Card> cards = new Stack<Card>();
     private int shoeSize;
 
     public Deck(int shoeSize) {
+        this.shoeSize = shoeSize;
         for (int i = 0; i < shoeSize; i++) {
             for (Card.Suit s : Card.Suit.values()) {
                 for (Card.Value v : Card.Value.values()) {
                     Card c = new Card(s, v);
                     cards.push(c);
-                    this.shoeSize++;
                 }
             }
         }
@@ -25,7 +25,9 @@ public class Deck {
             cardsToShuffle.add(c);
         }
 
-        for (int i = 0; i < shoeSize; i++) {
+        this.cards = new Stack<Card>();
+        int count = cardsToShuffle.size();
+        for (int i = 0; i < count; i++) {
             int randomCardNumber = (int) (Math.random() * cardsToShuffle.size());
             cards.push(cardsToShuffle.remove(randomCardNumber));
         }
@@ -33,7 +35,7 @@ public class Deck {
 
 
     public int size() {
-        return shoeSize;
+        return cards.size();
     }
 
     public Card draw() {

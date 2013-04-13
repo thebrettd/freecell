@@ -19,14 +19,18 @@ public class DeckTest {
     public void deckShuffleTest(){
         Deck deck = new Deck(1);
         Card c1 = deck.draw();
+        assertTrue(deck.size() == 51);
+
         deck.replace(c1);
+        assertTrue(deck.size() == 52);
 
         deck.shuffle();
         assertTrue(deck.size() == 52);
 
         Card c2 = deck.draw();
-
         assertFalse(c1.equals(c2));
+
+        deck.replace(c2);
 
         for(int i=0;i<deck.size();i++){
             assertNotNull(deck.draw());
