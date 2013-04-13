@@ -23,6 +23,8 @@ public class CardTest {
 
         Card c2 = new Card(Card.Suit.HEART, Card.Value.ACE);
         assertTrue(c2.getColor() == Card.Color.RED);
+
+        assertFalse(c1.getColor() == c2.getColor());
     }
 
 
