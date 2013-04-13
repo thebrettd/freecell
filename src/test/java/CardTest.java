@@ -16,5 +16,14 @@ public class CardTest {
 
     }
 
+    @Test
+    public void testColor(){
+        Card c1 = new Card(Card.Suit.SPADE, Card.Value.ACE);
+        assertTrue(c1.getColor() == Card.Color.BLACK);
+
+        Card c2 = new Card(Card.Suit.HEART, Card.Value.ACE);
+        assertTrue(c2.getColor() == Card.Color.RED);
+    }
+
 
 }
