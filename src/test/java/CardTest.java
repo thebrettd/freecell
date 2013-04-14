@@ -27,5 +27,11 @@ public class CardTest {
         assertFalse(c1.getColor() == c2.getColor());
     }
 
+    @Test
+    public void testPrint(){
+        Card c1 = new Card(Card.Suit.SPADE, Card.Value.ACE);
+        System.out.print(c1.toString());
+    }
+
 
 }
