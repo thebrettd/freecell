@@ -5,9 +5,12 @@ import java.util.Stack;
 
 public class Board {
 
-    private Map<Integer, ArrayList<Card>> columns = new HashMap<Integer, ArrayList<Card>>();
+    private Map<Integer, FreeCellColumn> columns = new HashMap<Integer, FreeCellColumn>();
     private ArrayList<Cell> freeCells = new ArrayList<Cell>();
     private int numFreecells;
+
+    private int maxCards;
+
 
     private class Cell{
         private Card myCard;
@@ -34,7 +37,7 @@ public class Board {
 
         //Create columns
         for (int i=0;i<numColumns;i++){
-            ArrayList<Card> col = new ArrayList<Card>();
+            FreeCellColumn col = new FreeCellColumn();
             columns.put(i,col);
         }
 
@@ -53,7 +56,7 @@ public class Board {
         int i=0;
         while(deck.size() > 0){
             Card cardToPlace = deck.draw();
-            ArrayList<Card> columnToPlace = columns.get(i);
+            FreeCellColumn columnToPlace = columns.get(i);
             columnToPlace.add(cardToPlace);
 
             if (i == numColumns - 1){
@@ -64,7 +67,7 @@ public class Board {
         }
     }
 
-    public Map<Integer, ArrayList<Card>> getColumns(){
+    public Map<Integer, FreeCellColumn> getColumns(){
         return columns;
     }
 
@@ -75,4 +78,29 @@ public class Board {
     public int getNumFreecells(){
         return this.numFreecells;
     }
+
+    public void print() {
+        //print freecells and discard piles
+
+        //Print out the first row and find the longest column
+        int rowNum = 0;
+        int maxRowNum = 0;
+        for(FreeCellColumn column : columns.values()){
+            column.print(rowNum);
+            maxRowNum = column.size() > maxRowNum ? column.size() : maxRowNum;
+        }
+        System.out.print("\n");
+        rowNum++;
+
+        //If there is a column more than 1 card deep, keep printing
+        while(rowNum < maxRowNum){
+            for(FreeCellColumn column : columns.values()){
+                column.print(rowNum);
+            }
+            rowNum++;
+            System.out.print("\n");
+        }
+
+    }
+
 }

@@ -23,4 +23,10 @@ public class BoardTest {
 
     }
 
+    @Test
+    public void boardPrintTest(){
+        Board b = new Board(4,8);
+        b.print();
+    }
+
 }
