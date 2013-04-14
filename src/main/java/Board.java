@@ -9,7 +9,6 @@ public class Board {
     private ArrayList<Cell> freeCells = new ArrayList<Cell>();
     private int numFreecells;
 
-    private int maxCards;
 
 
     private class Cell{
@@ -28,7 +27,7 @@ public class Board {
     }
 
 
-    public Board(int numFreeCells, int numColumns){
+    public Board(int numFreeCells, int numColumns) {
         //Create freecells
         for (int i=0;i<numFreeCells;i++){
             this.freeCells.add(new Cell());
@@ -46,7 +45,9 @@ public class Board {
         Stack<Card> hearteStack = new Stack<Card>();
         Stack<Card> diamondStack = new Stack<Card>();
         Stack<Card> clubStack = new Stack<Card>();
+    }
 
+    public void deal(){
         //Create deck
         Deck deck = new Deck(1);
         //Shuffle deck
@@ -59,12 +60,17 @@ public class Board {
             FreeCellColumn columnToPlace = columns.get(i);
             columnToPlace.add(cardToPlace);
 
-            if (i == numColumns - 1){
+            if (i == columns.size() - 1){
                 i = 0;
             }else{
                 i++;
             }
         }
+    }
+
+    public void executeMove(FreeCellMove move) {
+        move.targetColumn.add(move.card);
+        move.oldColumn.remove(move.card);
     }
 
     public Map<Integer, FreeCellColumn> getColumns(){
@@ -79,28 +85,38 @@ public class Board {
         return this.numFreecells;
     }
 
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         //print freecells and discard piles
 
         //Print out the first row and find the longest column
         int rowNum = 0;
         int maxRowNum = 0;
         for(FreeCellColumn column : columns.values()){
-            column.print(rowNum);
+            sb.append(column.toString(rowNum));
             maxRowNum = column.size() > maxRowNum ? column.size() : maxRowNum;
         }
-        System.out.print("\n");
+        sb.append("\n");
         rowNum++;
 
         //If there is a column more than 1 card deep, keep printing
         while(rowNum < maxRowNum){
             for(FreeCellColumn column : columns.values()){
-                column.print(rowNum);
+                sb.append(column.toString(rowNum));
             }
             rowNum++;
-            System.out.print("\n");
+            sb.append("\n");
         }
+        return sb.toString();
+    }
 
+    public static Board getMoveTestBoard() {
+        Board board = new Board(4, 8);
+
+        board.columns.get(0).add(new Card(Card.Suit.SPADE,Card.Value.KING));
+        board.columns.get(1).add(new Card(Card.Suit.HEART,Card.Value.QUEEN));
+        return board;
     }
 
 }

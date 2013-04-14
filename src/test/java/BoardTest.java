@@ -7,6 +7,7 @@ public class BoardTest {
     @Test
     public void boardConstructorTest(){
         Board b = new Board(4,8);
+        b.deal();
 
         assertTrue(b.getColumns().get(0).size() == 7);
         assertTrue(b.getColumns().get(1).size() == 7);
@@ -26,7 +27,7 @@ public class BoardTest {
     @Test
     public void boardPrintTest(){
         Board b = new Board(4,8);
-        b.print();
+        b.toString();
     }
 
 }
