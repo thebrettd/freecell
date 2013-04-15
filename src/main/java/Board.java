@@ -1,36 +1,24 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 public class Board {
 
     private Map<Integer, FreeCellColumn> columns = new HashMap<Integer, FreeCellColumn>();
-    private ArrayList<Cell> freeCells = new ArrayList<Cell>();
+
+    //create goal stacks
+    private GoalCell spadeGoal = new GoalCell();
+    private GoalCell heartGoal = new GoalCell();
+    private GoalCell diamondGoal = new GoalCell();
+    private GoalCell clubGoal = new GoalCell();
+
+    private ArrayList<FreeCell> freeCells = new ArrayList<FreeCell>();
     private int numFreecells;
-
-
-
-    private class Cell{
-        private Card myCard;
-
-        private Card getMyCard() {
-            return myCard;
-        }
-
-        private void setMyCard(Card myCard) {
-            this.myCard = myCard;
-        }
-
-        private Cell(){
-        }
-    }
-
 
     public Board(int numFreeCells, int numColumns) {
         //Create freecells
         for (int i=0;i<numFreeCells;i++){
-            this.freeCells.add(new Cell());
+            freeCells.add(new FreeCell());
             this.numFreecells++;
         }
 
@@ -39,12 +27,6 @@ public class Board {
             FreeCellColumn col = new FreeCellColumn();
             columns.put(i,col);
         }
-
-        //create discard stacks
-        Stack<Card> spadeStack = new Stack<Card>();
-        Stack<Card> hearteStack = new Stack<Card>();
-        Stack<Card> diamondStack = new Stack<Card>();
-        Stack<Card> clubStack = new Stack<Card>();
     }
 
     public void deal(){
@@ -58,8 +40,12 @@ public class Board {
         while(deck.size() > 0){
             Card cardToPlace = deck.draw();
             FreeCellColumn columnToPlace = columns.get(i);
-            columnToPlace.add(cardToPlace);
 
+            FieldCell cellToPlace = new FieldCell();
+            cellToPlace.addCard(cardToPlace);
+            columnToPlace.add(cellToPlace);
+
+            //Wrap around to first column
             if (i == columns.size() - 1){
                 i = 0;
             }else{
@@ -69,15 +55,17 @@ public class Board {
     }
 
     public void executeMove(FreeCellMove move) {
-        move.targetColumn.add(move.card);
-        move.oldColumn.remove(move.card);
+        Cell newCell = new FieldCell();
+        newCell.addCard(move.getOldCell().getCard());
+        move.getNewColumn().add(newCell);
+        move.getOldCell().removeCard();
     }
 
     public Map<Integer, FreeCellColumn> getColumns(){
         return columns;
     }
 
-    public ArrayList<Cell> getFreeCells() {
+    public ArrayList<FreeCell> getFreeCells() {
         return this.freeCells;
     }
 
@@ -88,7 +76,18 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        //print freecells and discard piles
+
+        //print freecells and goal piles
+        for(FreeCell freeCell: freeCells){
+            sb.append(freeCell);
+        }
+
+        sb.append(spadeGoal);
+        sb.append(heartGoal);
+        sb.append(diamondGoal);
+        sb.append(clubGoal);
+
+        sb.append("\n");
 
         //Print out the first row and find the longest column
         int rowNum = 0;
@@ -114,8 +113,13 @@ public class Board {
     public static Board getMoveTestBoard() {
         Board board = new Board(4, 8);
 
-        board.columns.get(0).add(new Card(Card.Suit.SPADE,Card.Value.KING));
-        board.columns.get(1).add(new Card(Card.Suit.HEART,Card.Value.QUEEN));
+        FieldCell c1 = new FieldCell();
+        c1.addCard(new Card(Card.Suit.SPADE,Card.Value.KING));
+        board.columns.get(0).add(c1);
+
+        FieldCell c2 = new FieldCell();
+        c2.addCard(new Card(Card.Suit.HEART,Card.Value.QUEEN));
+        board.columns.get(1).add(c2);
         return board;
     }
 

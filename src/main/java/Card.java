@@ -57,7 +57,7 @@ public class Card {
         Character value = valuePrintMap.get(this.getValue());
         Character suit = suitPrintMap.get(this.getSuit());
 
-        return "" + value + suit;
+        return "[" + value + suit + "]";
     }
 
     private static final Map<Value,Character> valuePrintMap;

@@ -30,7 +30,7 @@ public class CardTest {
     @Test
     public void testPrint(){
         Card c1 = new Card(Card.Suit.SPADE, Card.Value.ACE);
-        System.out.print(c1.toString());
+        assertTrue(c1.toString().equals("[A"+"♠"+"]"));
     }
 
 

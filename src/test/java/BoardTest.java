@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class BoardTest {
@@ -27,7 +28,9 @@ public class BoardTest {
     @Test
     public void boardPrintTest(){
         Board b = new Board(4,8);
-        b.toString();
+        b.deal();
+        assertNotNull(b.toString());
+        System.out.println(b);
     }
 
 }
