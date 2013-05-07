@@ -13,8 +13,5 @@ public class FieldCellTest {
         myFieldCell.addCard(aceOfHearts);
         assertTrue(myFieldCell.getMyCard().equals(aceOfHearts));
         assertTrue(myFieldCell.toString().equals(aceOfHearts.toString()));
-
-
-
     }
 }

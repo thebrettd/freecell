@@ -12,13 +12,15 @@ public class Board {
     private GoalCell diamondGoal = new GoalCell();
     private GoalCell clubGoal = new GoalCell();
 
-    private ArrayList<FreeCell> freeCells = new ArrayList<FreeCell>();
+    private ArrayList<FreeCellColumn> freeCellColumns = new ArrayList<FreeCellColumn>();
     private int numFreecells;
 
     public Board(int numFreeCells, int numColumns) {
         //Create freecells
         for (int i=0;i<numFreeCells;i++){
-            freeCells.add(new FreeCell());
+            FreeCellColumn freeCell = new FreeCellColumn();
+            freeCell.add(new FreeCell());
+            freeCellColumns.add(freeCell);
             this.numFreecells++;
         }
 
@@ -54,19 +56,28 @@ public class Board {
         }
     }
 
-    public void executeMove(FreeCellMove move) {
-        Cell newCell = new FieldCell();
-        newCell.addCard(move.getOldCell().getCard());
-        move.getNewColumn().add(newCell);
-        move.getOldCell().removeCard();
+    public void executeMove(FieldCellMove move) {
+        move.getOldColumn().removeAll(move.getCardsToMove());
+        move.getNewColumn().addAll(move.getCardsToMove());
+    }
+
+    public void executeMove(GoalCellMove move) {
+        move.getOldColumn().removeAll(move.getCardsToMove());
+        move.getNewColumn().addAll(move.getCardsToMove());
+    }
+
+    public void executeMove(ToFreeCellMove move) {
+        move.getOldColumn().removeAll(move.getCardsToMove());
+        move.getNewColumn().set(0, move.getCardsToMove().get(0));
+        this.numFreecells--;
     }
 
     public Map<Integer, FreeCellColumn> getColumns(){
         return columns;
     }
 
-    public ArrayList<FreeCell> getFreeCells() {
-        return this.freeCells;
+    public ArrayList<FreeCellColumn> getFreeCells() {
+        return this.freeCellColumns;
     }
 
     public int getNumFreecells(){
@@ -78,8 +89,8 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         //print freecells and goal piles
-        for(FreeCell freeCell: freeCells){
-            sb.append(freeCell);
+        for(FreeCellColumn freeCell: freeCellColumns){
+            sb.append(freeCell.toString(0));
         }
 
         sb.append(spadeGoal);

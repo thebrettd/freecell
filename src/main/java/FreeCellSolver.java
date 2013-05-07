@@ -10,25 +10,25 @@ public class FreeCellSolver {
 
         System.out.println(b.toString());
 
-        List<FreeCellMove> winningMoves = new ArrayList<FreeCellMove>();
+        List<FieldCellMove> winningMoves = new ArrayList<FieldCellMove>();
         solve(b,winningMoves);
 
-        for(FreeCellMove move: winningMoves){
+        for(FieldCellMove move: winningMoves){
             System.out.println(move.toString());
         }
 
     }
 
-    private static boolean solve(Board board, List<FreeCellMove> moves) {
+    private static boolean solve(Board board, List<FieldCellMove> moves) {
 
         //winning condition
         if (board.getNumFreecells() == 12) {
             System.out.println("Solved!!");
             return true;
         } else {
-            List<FreeCellMove> allValidMoves = getAllValidMoves(board);
+            List<FieldCellMove> allValidMoves = getAllValidMoves(board);
 
-            for (FreeCellMove move : allValidMoves) {
+            for (FieldCellMove move : allValidMoves) {
 
                 System.out.println("Trying a move");
 
@@ -50,8 +50,8 @@ public class FreeCellSolver {
         return false;
     }
 
-    private static List<FreeCellMove> getAllValidMoves(Board b) {
-        List<FreeCellMove> allValidMoves = new ArrayList<FreeCellMove>();
+    private static List<FieldCellMove> getAllValidMoves(Board b) {
+        List<FieldCellMove> allValidMoves = new ArrayList<FieldCellMove>();
 
 
         //Loop through each column - find each possible move

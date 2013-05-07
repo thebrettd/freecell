@@ -1,7 +1,7 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 //todo: would using a linked list make moving groups of cards faster (ie only need to move the root node/card)?
-public class FreeCellColumn extends ArrayList<Cell> {
+public class FreeCellColumn extends LinkedList<Cell> {
 
     public String toString(int rowNum) {
         StringBuilder sb = new StringBuilder();
