@@ -7,7 +7,7 @@ public class FieldCellTest {
     public void testToString() throws Exception {
 
         FieldCell myFieldCell = new FieldCell();
-        assertTrue(myFieldCell.toString().equals("[  ]"));
+        assertTrue(myFieldCell.toString().equals(""));
 
         Card aceOfHearts = new Card(Card.Suit.HEART, Card.Value.ACE);
         myFieldCell.addCard(aceOfHearts);

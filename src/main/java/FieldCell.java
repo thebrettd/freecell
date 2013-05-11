@@ -19,7 +19,7 @@ public class FieldCell implements Cell {
 
     @Override
     public String toString(){
-        return myCard != null ? myCard.toString() : "[  ]";
+        return myCard != null ? myCard.toString() : "";
     }
 
     public Card getMyCard(){

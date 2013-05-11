@@ -25,6 +25,10 @@ public class CardTest {
         assertTrue(c2.getColor() == Card.Color.RED);
 
         assertFalse(c1.getColor() == c2.getColor());
+
+        Card c3 = new Card(Card.Suit.HEART, Card.Value.KING);
+        assertTrue(c3.getColor() == c2.getColor());
+
     }
 
     @Test

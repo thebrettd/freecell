@@ -22,7 +22,7 @@ public class FreeCellSolver {
     private static boolean solve(Board board, List<FieldCellMove> moves) {
 
         //winning condition
-        if (board.getNumFreecells() == 12) {
+        if (board.isSolved()) {
             System.out.println("Solved!!");
             return true;
         } else {

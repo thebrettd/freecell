@@ -7,7 +7,7 @@ public class FreeCellColumn extends LinkedList<Cell> {
         StringBuilder sb = new StringBuilder();
 
         if (this.size() == 0 && rowNum == 0)
-            sb.append("[  ]");
+            sb.append("");
         else if (this.size() > rowNum)
             sb.append(this.get(rowNum));
 

@@ -60,6 +60,10 @@ public class Card {
         return "[" + value + suit + "]";
     }
 
+    public static Character suitToString(Card.Suit suit){
+        return suitPrintMap.get(suit);
+    }
+
     private static final Map<Value,Character> valuePrintMap;
     static {
         Map<Value,Character> m = new HashMap<Value,Character>();

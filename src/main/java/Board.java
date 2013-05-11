@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Board {
@@ -7,10 +8,17 @@ public class Board {
     private Map<Integer, FreeCellColumn> columns = new HashMap<Integer, FreeCellColumn>();
 
     //create goal stacks
-    private GoalCell spadeGoal = new GoalCell();
-    private GoalCell heartGoal = new GoalCell();
-    private GoalCell diamondGoal = new GoalCell();
-    private GoalCell clubGoal = new GoalCell();
+    private final GoalCell spadeGoal = new GoalCell(Card.Suit.SPADE);
+    private final GoalCell heartGoal = new GoalCell(Card.Suit.HEART);
+    private final GoalCell diamondGoal = new GoalCell(Card.Suit.DIAMOND);
+    private final GoalCell clubGoal = new GoalCell(Card.Suit.CLUB);
+    private List<GoalCell> myGoalCells = new ArrayList<GoalCell>();
+    {
+        myGoalCells.add(spadeGoal);
+        myGoalCells.add(heartGoal);
+        myGoalCells.add(diamondGoal);
+        myGoalCells.add(clubGoal);
+    }
 
     private ArrayList<FreeCellColumn> freeCellColumns = new ArrayList<FreeCellColumn>();
     private int numFreecells;
@@ -132,6 +140,17 @@ public class Board {
         c2.addCard(new Card(Card.Suit.HEART,Card.Value.QUEEN));
         board.columns.get(1).add(c2);
         return board;
+    }
+
+    public boolean isSolved(){
+        for(GoalCell gc : myGoalCells){
+            if (!gc.getCard().equals(new Card(gc.getMySuit(),Card.Value.KING)))
+                return false;
+        }
+
+        //All of the cards in the goal cells are Kings
+        return true;
+
     }
 
 }

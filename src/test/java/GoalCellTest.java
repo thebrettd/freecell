@@ -8,8 +8,8 @@ public class GoalCellTest {
     public void testGoalCell(){
         Card aceOfHearts = new Card(Card.Suit.HEART, Card.Value.ACE);
 
-        GoalCell myGoalCell = new GoalCell();
-        assertTrue(myGoalCell.toString().equals("[GC]"));
+        GoalCell myGoalCell = new GoalCell(Card.Suit.HEART);
+        assertTrue(myGoalCell.toString().equals("[GC" + '\u2665'  + "]"));
 
         myGoalCell.addCard(aceOfHearts);
         assertTrue(myGoalCell.toString().equals(aceOfHearts.toString()));
