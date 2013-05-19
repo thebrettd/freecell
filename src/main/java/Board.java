@@ -26,9 +26,8 @@ public class Board {
     public Board(int numFreeCells, int numColumns) {
         //Create freecells
         for (int i=0;i<numFreeCells;i++){
-            FreeCellColumn freeCell = new FreeCellColumn();
-            freeCell.add(new FreeCell());
-            freeCellColumns.add(freeCell);
+            FreeCellColumn freeCellColumn = new FreeCellColumn();
+            freeCellColumns.add(freeCellColumn);
             this.numFreecells++;
         }
 
@@ -53,7 +52,7 @@ public class Board {
 
             FieldCell cellToPlace = new FieldCell();
             cellToPlace.addCard(cardToPlace);
-            columnToPlace.add(cellToPlace);
+            columnToPlace.add(cellToPlace.getCard());
 
             //Wrap around to first column
             if (i == columns.size() - 1){
@@ -64,20 +63,9 @@ public class Board {
         }
     }
 
-    public void executeMove(FieldCellMove move) {
+    public void executeMove(Move move) {
         move.getOldColumn().removeAll(move.getCardsToMove());
-        move.getNewColumn().addAll(move.getCardsToMove());
-    }
-
-    public void executeMove(GoalCellMove move) {
-        move.getOldColumn().removeAll(move.getCardsToMove());
-        move.getNewColumn().addAll(move.getCardsToMove());
-    }
-
-    public void executeMove(ToFreeCellMove move) {
-        move.getOldColumn().removeAll(move.getCardsToMove());
-        move.getNewColumn().set(0, move.getCardsToMove().get(0));
-        this.numFreecells--;
+        move.getNewColumn().addAll( move.getCardsToMove());
     }
 
     public Map<Integer, FreeCellColumn> getColumns(){
@@ -134,17 +122,25 @@ public class Board {
 
         FieldCell c1 = new FieldCell();
         c1.addCard(new Card(Card.Suit.SPADE,Card.Value.KING));
-        board.columns.get(0).add(c1);
+        board.columns.get(0).add(c1.getCard());
 
         FieldCell c2 = new FieldCell();
         c2.addCard(new Card(Card.Suit.HEART,Card.Value.QUEEN));
-        board.columns.get(1).add(c2);
+        board.columns.get(1).add(c2.getCard());
+
+        FieldCell c3 = new FieldCell();
+        c3.addCard(new Card(Card.Suit.SPADE, Card.Value.JACK));
+        board.columns.get(2).add(c3.getCard());
+
+        FieldCell c4 = new FieldCell();
+        c4.addCard(new Card(Card.Suit.CLUB,Card.Value.KING));
         return board;
+
     }
 
     public boolean isSolved(){
         for(GoalCell gc : myGoalCells){
-            if (!gc.getCard().equals(new Card(gc.getMySuit(),Card.Value.KING)))
+            if (gc.getCard() == null || !gc.getCard().equals(new Card(gc.getMySuit(),Card.Value.KING)))
                 return false;
         }
 

@@ -1,12 +1,12 @@
 import java.util.List;
 
-public abstract class Move {
+public class Move {
 
-    protected List<Cell> cardsToMove;
+    protected List<Card> cardsToMove;  //The list of cells containing the cards you want to move
     protected FreeCellColumn oldColumn;
     protected FreeCellColumn newColumn;
 
-    Move(List<Cell> cardsToMove, FreeCellColumn oldColumn, FreeCellColumn newColumn) {
+    Move(List<Card> cardsToMove, FreeCellColumn oldColumn, FreeCellColumn newColumn) {
         this.cardsToMove = cardsToMove;
         this.oldColumn = oldColumn;
         this.newColumn = newColumn;
@@ -21,7 +21,7 @@ public abstract class Move {
         return sb.toString();
     }
 
-    public List<Cell> getCardsToMove() {
+    public List<Card> getCardsToMove() {
         return cardsToMove;
     }
 
