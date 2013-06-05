@@ -1,25 +1,30 @@
+import java.util.Stack;
+
 public class FreeCell implements Cell {
 
-    private Card myCard;
+    private Stack<Card> myCard = new Stack<Card>();
 
     public void addCard(Card card){
-        myCard = card;
+        if (myCard.size() >= 1){
+            throw new IllegalStateException("Cannot add another card to this FreeCell");
+        }
+        myCard.push(card);
     }
 
     @Override
     public Card getCard() {
-        return myCard;
+        return myCard.peek();
     }
 
     @Override
     public void removeCard() {
-        myCard = null;
+        myCard.pop();
     }
 
-    //Return the top card on the stack on empty symbol
+    //Return the top card on the stack or empty symbol
     @Override
     public String toString(){
-        return myCard != null ? myCard.toString() : "[FC]";
+        return myCard.size() == 1 ? myCard.peek().toString() : "[FC]";
     }
 
 }

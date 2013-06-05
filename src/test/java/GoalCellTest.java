@@ -9,7 +9,7 @@ public class GoalCellTest {
         Card aceOfHearts = new Card(Card.Suit.HEART, Card.Value.ACE);
 
         GoalCell myGoalCell = new GoalCell(Card.Suit.HEART);
-        assertTrue(myGoalCell.toString().equals("[GC" + '\u2665'  + "]"));
+        assertTrue(myGoalCell.toString().equals("[G" + '\u2665'  + "]"));
 
         myGoalCell.addCard(aceOfHearts);
         assertTrue(myGoalCell.toString().equals(aceOfHearts.toString()));

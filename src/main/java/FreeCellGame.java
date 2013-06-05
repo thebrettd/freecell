@@ -21,12 +21,13 @@ public class FreeCellGame {
         FreeCellGame game = new FreeCellGame(new Board(4, 8));
         game.getBoard().deal();
 
-        System.out.println(game.toString());
+        System.out.println(game);
 
         do{
             Move attemptedMove = game.readMove();
             if(isValidMove(attemptedMove)){
                 game.getBoard().executeMove(attemptedMove);
+                System.out.println(game);
             }
             else{
                 System.out.println("Invalid move");
@@ -35,10 +36,10 @@ public class FreeCellGame {
         while (!game.board.isSolved());
 
 
-        }
+    }
 
     private static boolean isValidMove(Move attemptedMove) {
-        return false;  //To change body of created methods use File | Settings | File Templates.
+        return true;  //To change body of created methods use File | Settings | File Templates.
     }
 
     public Move readMove() {
@@ -47,16 +48,17 @@ public class FreeCellGame {
 
         Move move = null;
         try{
-            System.out.println("Enter old column index: ");
+            System.out.print("Enter old column index: ");
             int oldColumnIndex = Integer.parseInt(bufRead.readLine());
             FreeCellColumn oldColumn = this.board.getColumns().get(oldColumnIndex);
 
-            System.out.println("Enter card index: ");
+            System.out.println("\t  Enter card index: ");
             int cardIndex = Integer.parseInt(bufRead.readLine());
             Card card = oldColumn.get(cardIndex);
 
-            System.out.println("Enter new column infex: ");
+            System.out.println("Enter new column index: ");
             int newColumnIndex = Integer.parseInt(bufRead.readLine());
+
             FreeCellColumn newColumn = this.board.getColumns().get(newColumnIndex);
 
             List<Card> cardsToMove = new LinkedList<Card>();

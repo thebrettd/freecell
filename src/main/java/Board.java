@@ -140,7 +140,7 @@ public class Board {
 
     public boolean isSolved(){
         for(GoalCell gc : myGoalCells){
-            if (gc.getCard() == null || !gc.getCard().equals(new Card(gc.getMySuit(),Card.Value.KING)))
+            if (gc.size() == 0 || !gc.getCard().equals(new Card(gc.getMySuit(),Card.Value.KING)))
                 return false;
         }
 

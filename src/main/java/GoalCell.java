@@ -9,6 +9,10 @@ public class GoalCell implements Cell {
         this.mySuit = mySuit;
     }
 
+    public int size(){
+        return myCards.size();
+    }
+
     @Override
     public void addCard(Card card) {
         if (card.getSuit() != mySuit) throw new IllegalStateException("Card and Goal Suit do not match");
@@ -27,7 +31,7 @@ public class GoalCell implements Cell {
 
     @Override
     public String toString(){
-        return myCards.size() > 0 ? myCards.peek().toString() : "[GC" + Card.suitToString(mySuit) +"]";
+        return myCards.size() > 0 ? myCards.peek().toString() : "[G" + Card.suitToString(mySuit) +"]";
     }
 
 

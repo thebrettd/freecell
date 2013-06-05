@@ -78,7 +78,7 @@ public class MoveTest {
      *  Move a card from a FieldCell to a FreeCell
      */
     @Test
-    public void testMoveOnceCardToFreeCell(){
+    public void testMoveOneCardToFreeCell(){
         Board board = Board.getMoveTestBoard();
 
         Card queenOfHearts = new Card(Card.Suit.HEART, Card.Value.QUEEN);
